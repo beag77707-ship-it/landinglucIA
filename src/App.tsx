@@ -4,8 +4,8 @@ function App() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
-  // Reemplaza esta URL con el Webhook de Zapier o Make
-  const ZAPIER_WEBHOOK_URL = "https://hooks.zapier.com/hooks/catch/123456/abcdef/";
+  // Pega aquí la URL que te dará el Google Apps Script
+  const WEBHOOK_URL = "https://script.google.com/macros/s/TU_SCRIPT/exec";
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -13,11 +13,14 @@ function App() {
     
     const formData = new FormData(e.currentTarget);
     const data = Object.fromEntries(formData.entries());
+    
+    // Recoger todos los checkboxes seleccionados
+    const doloresSeleccionados = formData.getAll('dolor_principal');
+    data['dolor_principal'] = doloresSeleccionados.join(', ') as string;
 
     try {
-      // Enviamos a Zapier/Make usando "no-cors" si es un webhook básico para evitar errores de navegador
-      // Ojo: si Zapier te pide CORS, puedes usar fetch estándar sin el mode: 'no-cors'
-      await fetch(ZAPIER_WEBHOOK_URL, {
+      // Enviamos a Google Apps Script usando "no-cors"
+      await fetch(WEBHOOK_URL, {
         method: 'POST',
         mode: 'no-cors',
         body: JSON.stringify(data),
@@ -28,7 +31,6 @@ function App() {
       setIsSuccess(true);
     } catch (error) {
       console.error("Error enviando el formulario:", error);
-      // Fallback a success para UX en este demo
       setIsSuccess(true); 
     } finally {
       setIsSubmitting(false);
@@ -107,7 +109,7 @@ function App() {
         {/* Formulario (Acceso) */}
         <div id="acceso" className="mt-32 w-full max-w-2xl bg-[#0a0a0a] border border-white/10 rounded-3xl p-8 md:p-12 relative z-10 shadow-2xl">
           <h2 className="text-3xl font-bold mb-2">Acceso Anticipado a LucIA</h2>
-          <p className="text-gray-400 mb-8 text-sm">Rellena el formulario para entrar en la lista de espera exclusiva. Te avisaremos cuando tu espacio esté listo.</p>
+          <p className="text-gray-400 mb-8 text-sm">Rellena el formulario para entrar en la lista de espera exclusiva. Todos los campos son obligatorios.</p>
 
           {isSuccess ? (
             <div className="bg-blue-500/10 border border-blue-500/30 rounded-xl p-8 text-center">
@@ -132,8 +134,8 @@ function App() {
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="instagram" className="text-sm font-medium text-gray-300">Instagram / Marca <span className="text-gray-500 font-normal">(Opcional)</span></label>
-                <input type="text" id="instagram" name="instagram" placeholder="@tu_marca_aqui" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-gray-600 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all" />
+                <label htmlFor="instagram" className="text-sm font-medium text-gray-300">Instagram / Marca</label>
+                <input required type="text" id="instagram" name="instagram" placeholder="@tu_marca_aqui" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-gray-600 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all" />
               </div>
 
               <div className="space-y-2">
@@ -142,7 +144,7 @@ function App() {
               </div>
 
               <div className="space-y-3">
-                <label className="text-sm font-medium text-gray-300 block mb-3">¿Qué te quita más tiempo actualmente?</label>
+                <label className="text-sm font-medium text-gray-300 block mb-3">¿Qué te quita más tiempo actualmente? (Puedes elegir varias)</label>
                 
                 {[
                   { id: 'grabar', label: 'Grabar vídeos' },
@@ -153,9 +155,10 @@ function App() {
                 ].map((option) => (
                   <label key={option.id} className="flex items-center gap-3 p-3 rounded-xl border border-white/5 bg-white/[0.02] hover:bg-white/5 cursor-pointer transition-colors group">
                     <div className="relative flex items-center">
-                      <input type="radio" name="dolor_principal" value={option.label} required className="peer sr-only" />
-                      <div className="w-5 h-5 rounded-full border border-gray-500 peer-checked:border-blue-500 peer-checked:bg-blue-500 transition-all"></div>
-                      <div className="absolute inset-0 w-full h-full rounded-full bg-white scale-0 peer-checked:scale-[0.4] transition-transform"></div>
+                      <input type="checkbox" name="dolor_principal" value={option.label} className="peer sr-only" />
+                      <div className="w-5 h-5 rounded-md border border-gray-500 peer-checked:border-blue-500 peer-checked:bg-blue-500 transition-all flex items-center justify-center">
+                        <svg className="w-3 h-3 text-white opacity-0 peer-checked:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7"></path></svg>
+                      </div>
                     </div>
                     <span className="text-sm text-gray-300 group-hover:text-white transition-colors">{option.label}</span>
                   </label>
