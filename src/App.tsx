@@ -78,31 +78,56 @@ function App() {
           Escala en redes sociales y ahorra docenas de horas cada semana.
         </p>
 
-        {/* Visual Mockup Section */}
-        <div className="relative mt-20 w-full max-w-5xl aspect-video rounded-3xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-sm z-10 shadow-[0_20px_100px_-20px_rgba(59,130,246,0.2)] group flex items-center justify-center">
-           <img 
-              src="/avatar.png" 
-              alt="Avatar generado por IA" 
-              className="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-screen group-hover:scale-105 transition-transform duration-1000"
-           />
-           {/* UI Overlay simulando plataforma */}
-           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-           <div className="absolute bottom-8 left-8 right-8 flex justify-between items-end">
-              <div className="bg-black/50 backdrop-blur-md border border-white/10 p-4 rounded-xl flex items-center gap-4">
-                 <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center shadow-[0_0_15px_rgba(59,130,246,0.6)]">
-                    <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                 </div>
-                 <div>
-                   <p className="text-sm font-semibold text-white">Generando contenido...</p>
-                   <p className="text-xs text-blue-300">LucIA Engine v2.0</p>
-                 </div>
-              </div>
-              <div className="hidden md:flex gap-2">
-                 <div className="w-2 h-12 bg-white/20 rounded-full animate-pulse" />
-                 <div className="w-2 h-16 bg-blue-500 rounded-full shadow-[0_0_10px_rgba(59,130,246,0.5)]" />
-                 <div className="w-2 h-10 bg-white/20 rounded-full animate-pulse delay-75" />
-                 <div className="w-2 h-14 bg-white/20 rounded-full animate-pulse delay-150" />
-              </div>
+        {/* Visual Mockup Section - Infographic */}
+        <div className="relative mt-20 w-full max-w-5xl aspect-[16/10] md:aspect-video rounded-3xl overflow-hidden border border-white/10 bg-[#0a0a0a]/50 backdrop-blur-md z-10 shadow-[0_20px_100px_-20px_rgba(59,130,246,0.15)] flex flex-col items-center justify-center p-8">
+           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-900/10 via-transparent to-transparent pointer-events-none" />
+           
+           <div className="flex flex-col md:flex-row items-center justify-center w-full max-w-4xl gap-4 md:gap-8 z-10 relative">
+             
+             {/* Step 1: Guiones */}
+             <div className="flex-1 w-full bg-white/5 border border-white/10 p-6 rounded-2xl flex flex-col items-center text-center shadow-lg hover:bg-white/10 transition-colors">
+               <div className="w-16 h-16 bg-blue-500/20 text-blue-400 rounded-full flex items-center justify-center mb-4 shadow-[0_0_15px_rgba(59,130,246,0.3)]">
+                 <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10l6 6v10a2 2 0 01-2 2z"></path><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M13 2v7h7M10 12h4m-4 4h4"></path></svg>
+               </div>
+               <h3 className="text-xl font-bold text-white mb-2">1. Guiones IA</h3>
+               <p className="text-sm text-gray-400">Generación automática de ideas y textos.</p>
+             </div>
+
+             {/* Arrow */}
+             <div className="hidden md:flex flex-col items-center justify-center opacity-50">
+               <svg className="w-8 h-8 text-blue-400 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+             </div>
+
+             {/* Step 2: Avatar */}
+             <div className="flex-1 w-full bg-white/5 border border-blue-500/30 p-6 rounded-2xl flex flex-col items-center text-center shadow-[0_0_30px_rgba(59,130,246,0.1)] relative overflow-hidden group">
+               <div className="absolute inset-0 bg-blue-500/5 group-hover:bg-blue-500/10 transition-colors" />
+               <div className="w-16 h-16 bg-blue-500/20 text-blue-400 rounded-full flex items-center justify-center mb-4 shadow-[0_0_20px_rgba(59,130,246,0.5)] z-10">
+                 <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+               </div>
+               <h3 className="text-xl font-bold text-white mb-2 z-10">2. Avatar Digital</h3>
+               <p className="text-sm text-blue-200 z-10">Clon realista hiper-preciso en vídeo.</p>
+             </div>
+
+             {/* Arrow */}
+             <div className="hidden md:flex flex-col items-center justify-center opacity-50">
+               <svg className="w-8 h-8 text-blue-400 animate-pulse delay-75" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+             </div>
+
+             {/* Step 3: Contenido */}
+             <div className="flex-1 w-full bg-white/5 border border-white/10 p-6 rounded-2xl flex flex-col items-center text-center shadow-lg hover:bg-white/10 transition-colors">
+               <div className="w-16 h-16 bg-blue-500/20 text-blue-400 rounded-full flex items-center justify-center mb-4 shadow-[0_0_15px_rgba(59,130,246,0.3)]">
+                 <svg className="w-8 h-8 ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+               </div>
+               <h3 className="text-xl font-bold text-white mb-2">3. Vídeo Listo</h3>
+               <p className="text-sm text-gray-400">Exportado, editado y listo para publicar.</p>
+             </div>
+
+           </div>
+
+           <div className="mt-12 text-center z-10">
+              <h2 className="text-3xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-gray-400 via-white to-gray-400 tracking-tight drop-shadow-sm">
+                Sin grabarte ni un segundo.
+              </h2>
            </div>
         </div>
 
