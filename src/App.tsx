@@ -5,7 +5,7 @@ function App() {
   const [isSuccess, setIsSuccess] = useState(false);
 
   // Pega aquí la URL que te dará el Google Apps Script
-  const WEBHOOK_URL = "https://script.google.com/macros/s/TU_SCRIPT/exec";
+  const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbzSoTFh7LC-VRDuNnlk2rFc4G7rP-xq_89BAbw2DW-ek66Wj_IAf4PLoZoLHk6jqZcE/exec";
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
