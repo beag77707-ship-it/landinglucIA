@@ -42,7 +42,7 @@ function App() {
       {/* Navbar Minimalista */}
       <nav className="w-full max-w-6xl mx-auto px-6 py-8 flex justify-between items-center z-50 relative">
         <div className="flex items-center gap-3">
-          <img src="/logo.png" alt="Quboss Media" className="h-6 w-auto" />
+          <img src="/logo.png" alt="Quboss Media" className="h-6 w-auto mix-blend-screen" style={{ mixBlendMode: 'screen' }} />
           <span className="font-medium tracking-[0.2em] uppercase text-sm opacity-80 border-l border-white/20 pl-3">LucIA</span>
         </div>
         <a href="#acceso" className="text-sm font-medium hover:text-blue-400 transition-colors bg-white/5 px-4 py-2 rounded-full border border-white/10 hover:bg-white/10">
@@ -79,7 +79,7 @@ function App() {
         </p>
 
         {/* Visual Mockup Section - Infographic */}
-        <div className="relative mt-20 w-full max-w-5xl aspect-[16/10] md:aspect-video rounded-3xl overflow-hidden border border-white/10 bg-[#0a0a0a]/50 backdrop-blur-md z-10 shadow-[0_20px_100px_-20px_rgba(59,130,246,0.15)] flex flex-col items-center justify-center p-8">
+        <div className="relative mt-20 w-full max-w-5xl rounded-3xl overflow-hidden border border-white/10 bg-[#0a0a0a]/50 backdrop-blur-md z-10 shadow-[0_20px_100px_-20px_rgba(59,130,246,0.15)] flex flex-col items-center justify-center p-8 md:p-16">
            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-900/10 via-transparent to-transparent pointer-events-none" />
            
            <div className="flex flex-col md:flex-row items-center justify-center w-full max-w-4xl gap-4 md:gap-8 z-10 relative">
@@ -125,7 +125,7 @@ function App() {
            </div>
 
            <div className="mt-12 text-center z-10">
-              <h2 className="text-3xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-gray-400 via-white to-gray-400 tracking-tight drop-shadow-sm">
+              <h2 className="text-3xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-gray-400 via-white to-gray-400 tracking-tight drop-shadow-sm pb-4">
                 Sin grabarte ni un segundo.
               </h2>
            </div>
