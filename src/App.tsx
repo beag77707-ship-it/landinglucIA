@@ -42,8 +42,7 @@ function App() {
       {/* Navbar Minimalista */}
       <nav className="w-full max-w-6xl mx-auto px-6 py-8 flex justify-between items-center z-50 relative">
         <div className="flex items-center gap-3">
-          {/* Usamos filtros para convertir el fondo blanco en negro y el logo azul en blanco, y luego lo mezclamos */}
-          <img src="/logo.png" alt="Quboss Media" className="h-6 w-auto" style={{ filter: 'grayscale(1) invert(1) brightness(2)', mixBlendMode: 'screen' }} />
+          <img src="/logo.png" alt="Quboss Media" className="h-6 w-auto" />
           <span className="font-medium tracking-[0.2em] text-sm opacity-80 border-l border-white/20 pl-3">lucIA</span>
         </div>
         <a href="#acceso" className="text-sm font-medium hover:text-blue-400 transition-colors bg-white/5 px-4 py-2 rounded-full border border-white/10 hover:bg-white/10">
