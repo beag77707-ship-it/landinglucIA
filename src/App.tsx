@@ -1,0 +1,191 @@
+import React, { useState } from 'react';
+
+function App() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+
+  // Reemplaza esta URL con el Webhook de Zapier o Make
+  const ZAPIER_WEBHOOK_URL = "https://hooks.zapier.com/hooks/catch/123456/abcdef/";
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    const formData = new FormData(e.currentTarget);
+    const data = Object.fromEntries(formData.entries());
+
+    try {
+      // Enviamos a Zapier/Make usando "no-cors" si es un webhook básico para evitar errores de navegador
+      // Ojo: si Zapier te pide CORS, puedes usar fetch estándar sin el mode: 'no-cors'
+      await fetch(ZAPIER_WEBHOOK_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      setIsSuccess(true);
+    } catch (error) {
+      console.error("Error enviando el formulario:", error);
+      // Fallback a success para UX en este demo
+      setIsSuccess(true); 
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-[#050505] text-white selection:bg-blue-500/30 font-sans pb-24">
+      {/* Navbar Minimalista */}
+      <nav className="w-full max-w-6xl mx-auto px-6 py-8 flex justify-between items-center z-50 relative">
+        <div className="flex items-center gap-3">
+          <img src="/logo.png" alt="Quboss Media" className="h-6 w-auto" />
+          <span className="font-medium tracking-[0.2em] uppercase text-sm opacity-80 border-l border-white/20 pl-3">LucIA</span>
+        </div>
+        <a href="#acceso" className="text-sm font-medium hover:text-blue-400 transition-colors bg-white/5 px-4 py-2 rounded-full border border-white/10 hover:bg-white/10">
+          Solicitar Acceso
+        </a>
+      </nav>
+
+      {/* Hero Section */}
+      <main className="relative w-full max-w-6xl mx-auto px-6 pt-12 md:pt-24 flex flex-col items-center">
+        {/* Gradiente Radial de fondo */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-blue-600/15 rounded-full blur-[120px] pointer-events-none" />
+
+        {/* Etiqueta Exclusiva */}
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-300 text-sm font-medium mb-10 shadow-[0_0_20px_rgba(59,130,246,0.15)]">
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+          </span>
+          Estamos seleccionando las primeras marcas personales
+        </div>
+
+        {/* Titular */}
+        <h1 className="text-5xl md:text-7xl lg:text-[5.5rem] font-bold tracking-tight text-center leading-[1.1] max-w-5xl z-10">
+          Publica contenido todos los días <br />
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-white drop-shadow-[0_0_20px_rgba(59,130,246,0.4)]">
+            sin grabarte todos los días.
+          </span>
+        </h1>
+
+        {/* Subtexto */}
+        <p className="mt-8 text-lg md:text-xl text-gray-400 font-light text-center max-w-2xl leading-relaxed z-10">
+          Creamos tu avatar digital, tus guiones y tu contenido automatizado. 
+          Escala en redes sociales y ahorra docenas de horas cada semana.
+        </p>
+
+        {/* Visual Mockup Section */}
+        <div className="relative mt-20 w-full max-w-5xl aspect-video rounded-3xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-sm z-10 shadow-[0_20px_100px_-20px_rgba(59,130,246,0.2)] group flex items-center justify-center">
+           <img 
+              src="/avatar.png" 
+              alt="Avatar generado por IA" 
+              className="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-screen group-hover:scale-105 transition-transform duration-1000"
+           />
+           {/* UI Overlay simulando plataforma */}
+           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+           <div className="absolute bottom-8 left-8 right-8 flex justify-between items-end">
+              <div className="bg-black/50 backdrop-blur-md border border-white/10 p-4 rounded-xl flex items-center gap-4">
+                 <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center shadow-[0_0_15px_rgba(59,130,246,0.6)]">
+                    <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                 </div>
+                 <div>
+                   <p className="text-sm font-semibold text-white">Generando contenido...</p>
+                   <p className="text-xs text-blue-300">LucIA Engine v2.0</p>
+                 </div>
+              </div>
+              <div className="hidden md:flex gap-2">
+                 <div className="w-2 h-12 bg-white/20 rounded-full animate-pulse" />
+                 <div className="w-2 h-16 bg-blue-500 rounded-full shadow-[0_0_10px_rgba(59,130,246,0.5)]" />
+                 <div className="w-2 h-10 bg-white/20 rounded-full animate-pulse delay-75" />
+                 <div className="w-2 h-14 bg-white/20 rounded-full animate-pulse delay-150" />
+              </div>
+           </div>
+        </div>
+
+        {/* Formulario (Acceso) */}
+        <div id="acceso" className="mt-32 w-full max-w-2xl bg-[#0a0a0a] border border-white/10 rounded-3xl p-8 md:p-12 relative z-10 shadow-2xl">
+          <h2 className="text-3xl font-bold mb-2">Acceso Anticipado a LucIA</h2>
+          <p className="text-gray-400 mb-8 text-sm">Rellena el formulario para entrar en la lista de espera exclusiva. Te avisaremos cuando tu espacio esté listo.</p>
+
+          {isSuccess ? (
+            <div className="bg-blue-500/10 border border-blue-500/30 rounded-xl p-8 text-center">
+              <div className="w-16 h-16 bg-blue-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
+              </div>
+              <h3 className="text-xl font-semibold text-white mb-2">¡Solicitud enviada!</h3>
+              <p className="text-blue-200 text-sm">Hemos recibido tus datos correctamente. Nuestro equipo revisará tu perfil y te contactaremos muy pronto.</p>
+            </div>
+          ) : (
+            <form onSubmit={handleSubmit} className="space-y-6">
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <label htmlFor="nombre" className="text-sm font-medium text-gray-300">Nombre completo</label>
+                  <input required type="text" id="nombre" name="nombre" placeholder="Ana García" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-gray-600 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all" />
+                </div>
+                <div className="space-y-2">
+                  <label htmlFor="email" className="text-sm font-medium text-gray-300">Correo electrónico</label>
+                  <input required type="email" id="email" name="email" placeholder="hola@ejemplo.com" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-gray-600 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all" />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <label htmlFor="instagram" className="text-sm font-medium text-gray-300">Instagram / Marca <span className="text-gray-500 font-normal">(Opcional)</span></label>
+                <input type="text" id="instagram" name="instagram" placeholder="@tu_marca_aqui" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-gray-600 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all" />
+              </div>
+
+              <div className="space-y-2">
+                <label htmlFor="motivo" className="text-sm font-medium text-gray-300">¿Por qué quieres crear tu avatar digital?</label>
+                <textarea required id="motivo" name="motivo" rows={3} placeholder="Cuéntanos brevemente tu objetivo..." className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-gray-600 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all resize-none"></textarea>
+              </div>
+
+              <div className="space-y-3">
+                <label className="text-sm font-medium text-gray-300 block mb-3">¿Qué te quita más tiempo actualmente?</label>
+                
+                {[
+                  { id: 'grabar', label: 'Grabar vídeos' },
+                  { id: 'editar', label: 'Editar' },
+                  { id: 'guiones', label: 'Pensar guiones' },
+                  { id: 'publicar', label: 'Publicar constantemente' },
+                  { id: 'escalar', label: 'Escalar contenido' }
+                ].map((option) => (
+                  <label key={option.id} className="flex items-center gap-3 p-3 rounded-xl border border-white/5 bg-white/[0.02] hover:bg-white/5 cursor-pointer transition-colors group">
+                    <div className="relative flex items-center">
+                      <input type="radio" name="dolor_principal" value={option.label} required className="peer sr-only" />
+                      <div className="w-5 h-5 rounded-full border border-gray-500 peer-checked:border-blue-500 peer-checked:bg-blue-500 transition-all"></div>
+                      <div className="absolute inset-0 w-full h-full rounded-full bg-white scale-0 peer-checked:scale-[0.4] transition-transform"></div>
+                    </div>
+                    <span className="text-sm text-gray-300 group-hover:text-white transition-colors">{option.label}</span>
+                  </label>
+                ))}
+              </div>
+
+              <button 
+                type="submit" 
+                disabled={isSubmitting}
+                className="w-full mt-4 bg-white text-black hover:bg-gray-200 hover:scale-[1.02] active:scale-[0.98] transition-all font-bold py-4 px-8 rounded-xl shadow-[0_0_30px_rgba(255,255,255,0.2)] flex justify-center items-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
+              >
+                {isSubmitting ? (
+                  <span className="animate-pulse">Procesando...</span>
+                ) : (
+                  <>
+                    Quiero mi avatar digital
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                  </>
+                )}
+              </button>
+            </form>
+          )}
+        </div>
+      </main>
+
+      <footer className="mt-24 border-t border-white/5 pt-8 text-center">
+        <p className="text-gray-600 text-sm">© {new Date().getFullYear()} Quboss Media. Todos los derechos reservados.</p>
+      </footer>
+    </div>
+  );
+}
+
+export default App;

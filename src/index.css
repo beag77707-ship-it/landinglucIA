@@ -1,0 +1,22 @@
+@import "tailwindcss";
+
+@theme {
+  --color-quboss-blue: #3b82f6;
+  --color-quboss-dark: #050505;
+}
+
+body {
+  background-color: var(--color-quboss-dark);
+  color: white;
+  font-family: "Inter", "SF Pro", sans-serif;
+  overflow-x: hidden;
+}
+
+/* Custom styles for animations */
+.glow-effect {
+  box-shadow: 0 0 50px rgba(59, 130, 246, 0.3);
+}
+
+.bg-radial-gradient {
+  background: radial-gradient(circle at top, rgba(30, 58, 138, 0.2), #050505 50%);
+}
